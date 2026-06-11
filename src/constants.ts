@@ -4,6 +4,6 @@ export const GITHUB_REST_API_POST_HEADERS = {
   Accept: "application/vnd.github+json",
   "X-GitHub-Api-Version": "2026-03-10"
 };
-export const PULL_REQUEST_TITLE = /chore: release version packages? \[skip ci]/;
+export const PULL_REQUEST_TITLE = /chore: release version packages?/;
 export const AUTO_MERGE_MESSAGE = "The auto-merge is enabled.";
 export const GITHUB_ACTIONS_BOT = "github-actions[bot]";
