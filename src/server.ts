@@ -1,10 +1,13 @@
+import type { AppConfig } from "./types.js";
+
 import { createServer } from "node:http";
+import { env } from "node:process";
 
 import { config, port } from "./config.js";
 import { handleWebhook } from "./handler/handle-webhook.js";
 
 createServer(async (request, response) => {
-  if (request.method !== "POST" || request.url !== "/api/webhook") {
+  if (request.method !== "POST" || !request.url?.match(/^api\/webhook\/approve(-\d)?$/g)) {
     response.writeHead(404).end();
     return;
   }
@@ -16,7 +19,12 @@ createServer(async (request, response) => {
     for (const [key, value] of Object.entries(request.headers)) {
       headers[key] = Array.isArray(value) ? value[0] : value;
     }
-    const result = await handleWebhook(config, headers, rawBody);
+    const approve2PrivateKey = env.PRIVATE_KEY_2?.replace(/\\n/g, "\n") ?? "";
+    const botConfig: AppConfig =
+      request.url === "/api/webhook/approve-2"
+        ? { ...config, privateKey: approve2PrivateKey }
+        : config;
+    const result = await handleWebhook(botConfig, headers, rawBody);
     response.writeHead(result.status, { "Content-Type": "application/json" });
     response.end(JSON.stringify(result.message));
   } catch (error) {
