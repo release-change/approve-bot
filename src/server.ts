@@ -7,7 +7,7 @@ import { config, port } from "./config.js";
 import { handleWebhook } from "./handler/handle-webhook.js";
 
 createServer(async (request, response) => {
-  if (request.method !== "POST" || !request.url?.match(/^api\/webhook\/approve(-\d)?$/g)) {
+  if (request.method !== "POST" || !request.url?.match(/^\/api\/webhook\/approve(-\d)?$/g)) {
     response.writeHead(404).end();
     return;
   }
