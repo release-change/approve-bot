@@ -7,6 +7,11 @@ import { config, port } from "./config.js";
 import { handleWebhook } from "./handler/handle-webhook.js";
 
 createServer(async (request, response) => {
+  if (request.method === "GET" && request.url === "/health") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify({ status: "ok" }));
+    return;
+  }
   if (request.method !== "POST" || !request.url?.match(/^\/api\/approve(-\d)?$/g)) {
     response.writeHead(404).end();
     return;
