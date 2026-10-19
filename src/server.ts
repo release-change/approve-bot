@@ -7,7 +7,12 @@ import { config, port } from "./config.js";
 import { handleWebhook } from "./handler/handle-webhook.js";
 
 createServer(async (request, response) => {
-  if (request.method !== "POST" || !request.url?.match(/^\/api\/webhook\/approve(-\d)?$/g)) {
+  if (request.method === "GET" && request.url === "/health") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify({ status: "ok" }));
+    return;
+  }
+  if (request.method !== "POST" || !request.url?.match(/^\/api\/approve(-\d)?$/g)) {
     response.writeHead(404).end();
     return;
   }
@@ -22,7 +27,7 @@ createServer(async (request, response) => {
     const approve2AppId = env.APP_ID_2 ?? "";
     const approve2PrivateKey = env.PRIVATE_KEY_2?.replace(/\\n/g, "\n") ?? "";
     const botConfig: AppConfig =
-      request.url === "/api/webhook/approve-2"
+      request.url === "/api/approve-2"
         ? { ...config, appId: approve2AppId, privateKey: approve2PrivateKey }
         : config;
     const result = await handleWebhook(botConfig, headers, rawBody);
