@@ -1,10 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "docker:pinDigests", "helpers:pinGitHubActionDigests"],
+  "extends": [
+    "config:recommended",
+    "customManagers:dockerfileVersions",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests"
+  ],
   "dependencyDashboard": false,
   "timezone": "Europe/Paris",
   "schedule": ["* 0-5 * * *"],
-  "enabledManagers": ["dockerfile", "github-actions", "npm"],
+  "enabledManagers": ["custom.regex", "dockerfile", "github-actions", "npm"],
   "rangeStrategy": "pin",
   "baseBranches": ["main"],
   "semanticCommits": "enabled",

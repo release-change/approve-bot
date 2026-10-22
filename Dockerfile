@@ -2,9 +2,11 @@ FROM node:24.22.0-trixie-slim@sha256:7f486cabe892bff8fef04c0f7da8dba84a560be3e4e
 WORKDIR /app
 
 FROM node-base AS pnpm-base
+# renovate: datasource=npm depName=pnpm versioning=npm
+ARG PNPM_VERSION=12.14.0
 ENV PNPM_HOME=/pnpm
 ENV PATH="${PNPM_HOME}:${PATH}"
-RUN npm install --global pnpm@12.14.0
+RUN npm install --global pnpm@${PNPM_VERSION}
 
 FROM pnpm-base AS build
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
