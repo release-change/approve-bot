@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM node-base AS pnpm-base
 # renovate: datasource=npm depName=pnpm versioning=npm
-ARG PNPM_VERSION=12.16.1
+ARG PNPM_VERSION=12.18.0
 ENV PNPM_HOME=/pnpm
 ENV PATH="${PNPM_HOME}:${PATH}"
 RUN npm install --global pnpm@${PNPM_VERSION}
