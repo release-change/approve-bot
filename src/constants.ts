@@ -8,3 +8,4 @@ export const PULL_REQUEST_TITLE = /chore: release version packages?/;
 export const AUTO_MERGE_MESSAGE = "The auto-merge is enabled.";
 export const GITHUB_ACTIONS_BOT = "github-actions[bot]";
 export const RELEASE_CHANGE_BOT = "release-change[bot]";
+export const RELEASE_CHANGE_BRANCH_PREFIX = "release-change/";
