@@ -242,7 +242,7 @@ type Sender = {
   user_view_type: string;
   site_admin: boolean;
 };
-export type GitHubPayload = {
+export type GitHubPayloadPullRequest = {
   action: string;
   number: number;
   pull_request: PullRequest;
@@ -253,3 +253,11 @@ export type GitHubPayload = {
     node_id: string;
   };
 };
+export type GitHubPayloadPullRequestReview = GitHubPayloadPullRequest & {
+  review: {
+    user: {
+      login: string;
+    };
+  };
+};
+export type GitHubPayload = GitHubPayloadPullRequest | GitHubPayloadPullRequestReview;
