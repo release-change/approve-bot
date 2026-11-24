@@ -1,4 +1,4 @@
-export const mockedInvalidPayloads = [
+export const mockedInvalidPullRequestPayloads = [
   {
     action: "closed",
     installation: { id: 42 },
