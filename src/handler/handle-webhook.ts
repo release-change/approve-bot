@@ -9,7 +9,6 @@ import { isAutoMerging } from "../utils/is-auto-merging.js";
 import { isValidApprover } from "../utils/is-valid-approver.js";
 import { isValidBot } from "../utils/is-valid-bot.js";
 import { isValidTitle } from "../utils/is-valid-title.js";
-import { isValidUser } from "../utils/is-valid-user.js";
 import { verifySignature } from "../utils/verify-signature.js";
 import { approvePullRequest } from "./approve-pull-request.js";
 
@@ -54,8 +53,7 @@ export const handleWebhook = async (
       isValidTitle(payload) &&
       isValidBot(payload) &&
       isAutoMerging(payload) &&
-      isValidApprover(payload) &&
-      isValidUser(payload)
+      isValidApprover(payload)
     ) {
       const {
         pull_request: { number },
